@@ -62,7 +62,7 @@ A full-stack web application for organizing and participating in community event
    VITE_FIREBASE_PROJECT_ID="..."
    VITE_FIREBASE_MESSAGING_SENDER_ID="..."
    VITE_FIREBASE_APP_ID="..."
-   VITE_API_URL=http://localhost:5000     // Should match the PORT in backend/.env
+   VITE_API_URL=http://localhost:5000
    ```
 
 2. Install dependencies:
