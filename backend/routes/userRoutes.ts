@@ -1,5 +1,10 @@
 import express from "express";
-import { updateUserProfile, createOrUpdateUser, getUserByUID, getUserProfile } from "../controllers/userControllers";
+import { 
+    updateUserProfile, 
+    createOrUpdateUser, 
+    getUserByUID, 
+    getUserProfile 
+} from "../controllers/userControllers";
 
 const router = express.Router();
 router.post("/", createOrUpdateUser);
