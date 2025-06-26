@@ -7,7 +7,8 @@ import Navbar from './components/navBar'
 import ProtectedRoute from './components/protectedRoute'
 import CreateEvent from './pages/createEvent'
 import Profile from './pages/profile'
-import { ThemeProvider} from '../components/theme-provider'
+import EventDetails from './pages/eventDetails'
+import { ThemeProvider } from '../components/theme-provider'
 import { Toaster } from 'sonner'
 
 
@@ -18,19 +19,27 @@ const App = () => {
       <Router>
         <Navbar />
         <Routes>
-          <Route path = "/" element = {<Home />} />
-          <Route path = "/login" element = {<Login />} />
-          <Route path = "/events" element = {
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/events" element={
             <ProtectedRoute>
               <Events />
             </ProtectedRoute>
           } />
-          <Route path = "/profile" element = {
+          <Route
+            path="/events/:id"
+            element={
+              <ProtectedRoute>
+                <EventDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/profile" element={
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           } />
-          <Route path = "*" element = {<NotFound />} />
+          <Route path="*" element={<NotFound />} />
           <Route path="/create" element={<CreateEvent />} />
         </Routes>
       </Router>

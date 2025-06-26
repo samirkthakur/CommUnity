@@ -46,12 +46,10 @@ export default function CreateEvent() {
       }
       const apiUrl = import.meta.env.VITE_API_URL;
 
-      await axios.post(
-        `${apiUrl}/api/events`,
-        {
-          ...values,
-          createdBy: user.uid,
-        },
+      await axios.post(`${apiUrl}/api/events`, {
+        ...values,
+        createdBy: user.uid,
+      },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -68,9 +66,8 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 space-y-6 bg-background rounded-xl shadow">
-      <h1 className="text-2xl font-bold">Create Event</h1>
-
+    <div className="space-y-8 mt-10 max-w-lg mx-auto p-6 bg-card rounded-xl shadow">
+      <h1 className="text-2xl text-center font-bold">Create Event</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -79,7 +76,7 @@ export default function CreateEvent() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Title</FormLabel>
-                <FormControl>
+                <FormControl className="mt-2">
                   <Input placeholder="Event title" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -93,7 +90,7 @@ export default function CreateEvent() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Description</FormLabel>
-                <FormControl>
+                <FormControl className="mt-2">
                   <Textarea placeholder="Event description" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -107,7 +104,7 @@ export default function CreateEvent() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Date</FormLabel>
-                <FormControl>
+                <FormControl className="mt-2">
                   <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -121,7 +118,7 @@ export default function CreateEvent() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Location</FormLabel>
-                <FormControl>
+                <FormControl className="mt-2">
                   <Input placeholder="Event location" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -129,7 +126,7 @@ export default function CreateEvent() {
             )}
           />
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full mt-2">
             Create Event
           </Button>
         </form>
