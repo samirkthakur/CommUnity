@@ -5,6 +5,7 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 import { fetchEvents } from "../api";
 import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
 
 
 import {
@@ -26,7 +27,7 @@ type Event = {
 
 const Events = () => {
   const [events, setEvents] = useState<Event[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getEvents = async () => {
       const data = await fetchEvents();
@@ -39,20 +40,25 @@ const Events = () => {
     try {
       const auth = getAuth();
       const user = auth.currentUser;
+      const token = await user?.getIdToken();
       if (!user) {
         toast.error("You must be logged in to join an event.");
         return;
       }
       const apiUrl = import.meta.env.VITE_API_URL;
-
       await axios.post(`${apiUrl}/api/events/${eventId}/join`, {
-        userId: user.uid,
-      });
+          userId: user.uid,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       toast.success("Joined event!");
     } catch (err) {
-        toast.error("Failed to join event. Please try again.");
-        console.error("Join failed", err);
+      toast.error("Failed to join event. Please try again.");
+      console.error("Join failed", err);
     }
   };
 
@@ -80,12 +86,18 @@ const Events = () => {
                   <strong>Location:</strong> {event.location}
                 </p>
               </CardContent>
-
-              <CardFooter>
-                <Button className="w-full" onClick={() => joinEvent(event._id)}>
-                  Join
-                </Button>
-              </CardFooter>
+              <div className="grid sm:grid-cols-2 gap-0">
+                <CardFooter>
+                  <Button className="w-full" onClick={() => joinEvent(event._id)}>
+                    Join
+                  </Button>
+                </CardFooter>
+                <CardFooter>
+                  <Button className="w-full" onClick={() => navigate(`/events/${event._id}`)}>
+                    View Details
+                  </Button>
+                </CardFooter>
+              </div>
             </Card>
           ))}
         </div>
